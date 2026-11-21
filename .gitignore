@@ -1,0 +1,25 @@
+# Release artifacts (uploaded to GitHub Releases, not committed)
+*.apk
+*.aab
+*.zip
+
+# Signing material
+*.jks
+*.keystore
+app/keystore/
+keystore/
+
+# Android / Gradle
+.gradle/
+build/
+app/build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
