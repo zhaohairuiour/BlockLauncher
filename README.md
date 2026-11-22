@@ -2,7 +2,7 @@
 
 **方块启动器 · Minecraft Java + Bedrock，装进一台 Android 设备。**
 
-[![最新版本](https://img.shields.io/badge/version-1.5.13-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
+[![最新版本](https://img.shields.io/badge/version-1.5.14-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![arm64-v8a](https://img.shields.io/badge/ABI-arm64--v8a-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 
@@ -35,7 +35,7 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 
 | 项目 | 值 |
 | --- | --- |
-| 最新版本 | **1.5.13** |
+| 最新版本 | **1.5.14** |
 | 发布日期 | 2026-11-22 |
 | 包名 | `com.blocklauncher.app` |
 | 架构 | `arm64-v8a` |
@@ -46,8 +46,8 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 前往 [Releases](https://github.com/zhaohairuiour/BlockLauncher/releases/latest) 下载 APK。
 
 ```text
-SHA-256 (BlockLauncher-1.5.13.apk)
-b5eefb0ddd59c600ed8196c11cc663933a7dd5ec97f335afde51260df97a62c8
+SHA-256 (BlockLauncher-1.5.14.apk)
+293aa0e3886cc851f2ba34b1233b1f67f23b82f1cc8fa67c832edc5b589909fa
 ```
 
 ## 安装
@@ -62,13 +62,14 @@ b5eefb0ddd59c600ed8196c11cc663933a7dd5ec97f335afde51260df97a62c8
 
 ## 当前版本状态
 
-`1.5.13` 修正了 1.5.12 对启动失败的误判：
+`1.5.14` 增加启动前自动补全游戏文件：
 
-- **真正的失败点不是执行位**。1.5.13 的日志显示 `jre21/bin/java` 已可执行；JDK `libjli` 检测到 `LD_LIBRARY_PATH` 中 `lib/server` 不在首段，试图 `execve` 自身重启。Android 10+ 对 `targetSdk 29+` 禁止执行应用私有目录里的文件，所以内核返回 `EACCES`，最终表现为 `Permission denied / trying to exec .../bin/java`。
-- **修复方式**：`PojavRuntime.buildLdPath` 和 `LaunchEngine` 统一把 `lib/server` 放在首段，避免 JDK 重新执行自身；启动日志新增 `LD_LIBRARY_PATH 首段` 便于确认。
-- 保留 1.5.12 的 JRE 执行位自修复，以及触控编辑器在屏幕内布局、正文滚动、宽屏双栏 / 窄屏底部面板的修复。
+- **启动自检**：每次启动检查客户端 jar、所有 libraries、资源索引与 objects、native jar 解压结果；缺失、截断或 SHA-1 不匹配的文件按版本 JSON 自动下载。
+- **不重装版本**：只补缺失/损坏文件，不删除存档、版本隔离目录和模组；补全过程显示在启动进度中。
+- 保留 1.5.13 的 `lib/server` 首段 `LD_LIBRARY_PATH` 修复，避免 JDK 在 Android 10+ 上因 W^X 返回 `Permission denied`。
+- 保留 1.5.12 的 JRE 执行位自修复与触控编辑器小屏布局。
 
-已知问题：1.5.13 尚未在真实 Android 设备上验证 1.21.11 能否继续越过 JVM 初始化。如果仍以退出码 1 结束，请把最新日志发到 Issue。日志目录：
+已知问题：1.5.14 尚未在真实 Android 设备上验证自动补全后的 1.21.11 能否越过 JVM 初始化。如果仍以退出码 6 结束，请把最新 `pojav-1.21.11.log` 发到 Issue。日志目录：
 
 ```text
 Android/data/com.blocklauncher.app/files/BlockLauncher/logs/
