@@ -1,5 +1,12 @@
 # 更新记录
 
+## 1.5.17 · 2026-11-22
+
+- **修复 JNA 在 Android 上加载 glibc 库**：`-Djna.nosys=true` 会让 JNA 从 `jna-5.17.0.jar` 解压 `linux-aarch64/libjnidispatch.so`，该文件依赖 `libc.so.6`，在 Android 上 dlopen 失败。改为 `-Djna.boot.library.path` 指向 APK 内的 Android 7.0.4 `libjnidispatch.so`，同时保留 `nosys` 阻止系统残留 6.1.6。
+- **修复 LWJGL 官方 Linux natives 回流**：`PojavNatives.prune` 原先在解压前执行，随后 `extractNatives` 又把 `lwjgl-3.3.3-natives-linux.jar` 里的 `liblwjgl.so`、`libopenal.so`、`libfreetype.so` 等解压回版本目录。现在解压时跳过 Pojav 接管名单，解压后再清理一次；Pojav 模式 classpath 也移除官方 `org.lwjgl` 组件，避免 Java `3.3.3-snapshot` 与官方 Linux native 版本不匹配。
+- 保留 1.5.14 启动前自动补全、1.5.13 `lib/server` 首段 `LD_LIBRARY_PATH`、1.5.12 JRE 执行位与触控编辑器修复。
+- 已知问题：尚未在真实 Android 设备复测 1.21.11 是否进入主界面；若仍退出码 6，请附最新 `pojav-1.21.11.log`。
+
 ## 1.5.16 · 2026-11-22
 
 - **修复 JNA 原生库版本冲突**：设备日志报 `Expected: 7.0.4 / Found: 6.1.6`。用 `jna-5.17.0.aar` 的 Android arm64 `libjnidispatch.so`（7.0.4）替换 APK 内置的 Pojav 6.1.6 版本，并保留 `-Djna.nosys=true`；OSHI 的 processor/memory 初始化不再因 Udev 加载失败而中断。
@@ -11,7 +18,7 @@
 ## 1.5.15 · 2026-11-22
 
 - 过渡版本：首次尝试移除 APK 内置 JNA native 并启用 `-Djna.nosys=true`，真机未验证。
-- 该版本已被 1.5.16 替换；请使用 1.5.16 的 7.0.4 Android 原生库。
+- 该版本已被 1.5.17 替换；请使用 1.5.17 的 Android 7.0.4 原生库。
 
 ## 1.5.14 · 2026-11-22
 
