@@ -2,7 +2,7 @@
 
 **方块启动器 · Minecraft Java + Bedrock，装进一台 Android 设备。**
 
-[![最新版本](https://img.shields.io/badge/version-1.5.14-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
+[![最新版本](https://img.shields.io/badge/version-1.5.15-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![arm64-v8a](https://img.shields.io/badge/ABI-arm64--v8a-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 
@@ -35,7 +35,7 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 
 | 项目 | 值 |
 | --- | --- |
-| 最新版本 | **1.5.14** |
+| 最新版本 | **1.5.15** |
 | 发布日期 | 2026-11-22 |
 | 包名 | `com.blocklauncher.app` |
 | 架构 | `arm64-v8a` |
@@ -46,8 +46,8 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 前往 [Releases](https://github.com/zhaohairuiour/BlockLauncher/releases/latest) 下载 APK。
 
 ```text
-SHA-256 (BlockLauncher-1.5.14.apk)
-293aa0e3886cc851f2ba34b1233b1f67f23b82f1cc8fa67c832edc5b589909fa
+SHA-256 (BlockLauncher-1.5.15.apk)
+6545dc2463b0d0cad2979975627d71e0729290aa4d7f2fb219b01f2eca27dc66
 ```
 
 ## 安装
@@ -62,14 +62,13 @@ SHA-256 (BlockLauncher-1.5.14.apk)
 
 ## 当前版本状态
 
-`1.5.14` 增加启动前自动补全游戏文件：
+`1.5.15` 修复 JNA 与 LWJGL 原生库版本冲突：
 
-- **启动自检**：每次启动检查客户端 jar、所有 libraries、资源索引与 objects、native jar 解压结果；缺失、截断或 SHA-1 不匹配的文件按版本 JSON 自动下载。
-- **不重装版本**：只补缺失/损坏文件，不删除存档、版本隔离目录和模组；补全过程显示在启动进度中。
-- 保留 1.5.13 的 `lib/server` 首段 `LD_LIBRARY_PATH` 修复，避免 JDK 在 Android 10+ 上因 W^X 返回 `Permission denied`。
-- 保留 1.5.12 的 JRE 执行位自修复与触控编辑器小屏布局。
+- **JNA**：移除 APK 内置的 6.1.6 `libjnidispatch.so`；启动参数加入 `-Djna.nosys=true`，让 Minecraft 自带的 `jna-5.17.0` 从 jar 解压 7.0.4 原生库，OSHI 不再报 `Expected: 7.0.4 / Found: 6.1.6`。
+- **LWJGL**：新增 `PojavNatives` 接管名单；安装、自动补全和启动前清理版本 natives 目录中的官方 Linux 版 `liblwjgl*.so`、`libopenal.so`、`libfreetype.so`、`libglfw.so`、`libjnidispatch.so`，只使用 Pojav 运行层的 Android 版。
+- 保留 1.5.14 的启动前自动补全、1.5.13 的 `lib/server` 首段 `LD_LIBRARY_PATH` 修复和 1.5.12 的 JRE 执行位/触控编辑器修复。
 
-已知问题：1.5.14 尚未在真实 Android 设备上验证自动补全后的 1.21.11 能否越过 JVM 初始化。如果仍以退出码 6 结束，请把最新 `pojav-1.21.11.log` 发到 Issue。日志目录：
+已知问题：1.5.15 尚未在真实 Android 设备上验证 1.21.11 能否进入主界面。如果仍以退出码 6 结束，请把最新 `pojav-1.21.11.log` 发到 Issue。日志目录：
 
 ```text
 Android/data/com.blocklauncher.app/files/BlockLauncher/logs/
