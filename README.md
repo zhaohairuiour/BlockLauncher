@@ -2,7 +2,7 @@
 
 **方块启动器 · Minecraft Java + Bedrock，装进一台 Android 设备。**
 
-[![最新版本](https://img.shields.io/badge/version-1.5.12-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
+[![最新版本](https://img.shields.io/badge/version-1.5.13-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 [![arm64-v8a](https://img.shields.io/badge/ABI-arm64--v8a-4AEDD9?style=flat-square&labelColor=0B0C0D)](https://github.com/zhaohairuiour/BlockLauncher/releases/latest)
 
@@ -35,8 +35,8 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 
 | 项目 | 值 |
 | --- | --- |
-| 最新版本 | **1.5.12** |
-| 发布日期 | 2026-11-21 |
+| 最新版本 | **1.5.13** |
+| 发布日期 | 2026-11-22 |
 | 包名 | `com.blocklauncher.app` |
 | 架构 | `arm64-v8a` |
 | 最低系统 | Android 8.0 / API 26 |
@@ -46,8 +46,8 @@ BlockLauncher 是一个原生 Android 启动器，使用 Kotlin + Jetpack Compos
 前往 [Releases](https://github.com/zhaohairuiour/BlockLauncher/releases/latest) 下载 APK。
 
 ```text
-SHA-256 (BlockLauncher-1.5.12.apk)
-91a7f99b3bbb3a1a087a66ed2fff661a376672f6f0b407851899a2cc412b40f1
+SHA-256 (BlockLauncher-1.5.13.apk)
+b5eefb0ddd59c600ed8196c11cc663933a7dd5ec97f335afde51260df97a62c8
 ```
 
 ## 安装
@@ -62,13 +62,13 @@ SHA-256 (BlockLauncher-1.5.12.apk)
 
 ## 当前版本状态
 
-`1.5.12` 解决两个实际阻塞问题：
+`1.5.13` 修正了 1.5.12 对启动失败的误判：
 
-- **JRE 执行权限**：运行层扫描、启动前检查和安装完成后统一修复 `jre21/bin/java` 执行位。1.5.10 已安装到本地的旧 JRE 不用重新下载；截图中的 `Permission denied / trying to exec .../bin/java` 由这条路径处理。
-- **触控编辑器布局**：编辑对话框限制在屏幕宽高内，正文独立滚动，底部按钮固定；检查器在宽屏改左右双栏，窄屏改底部面板，不再覆盖画布右侧；顶部工具栏支持横向滚动。
-- 保留 1.5.11 的日志捕获、jar 校验和 Java 21 选择逻辑。
+- **真正的失败点不是执行位**。1.5.13 的日志显示 `jre21/bin/java` 已可执行；JDK `libjli` 检测到 `LD_LIBRARY_PATH` 中 `lib/server` 不在首段，试图 `execve` 自身重启。Android 10+ 对 `targetSdk 29+` 禁止执行应用私有目录里的文件，所以内核返回 `EACCES`，最终表现为 `Permission denied / trying to exec .../bin/java`。
+- **修复方式**：`PojavRuntime.buildLdPath` 和 `LaunchEngine` 统一把 `lib/server` 放在首段，避免 JDK 重新执行自身；启动日志新增 `LD_LIBRARY_PATH 首段` 便于确认。
+- 保留 1.5.12 的 JRE 执行位自修复，以及触控编辑器在屏幕内布局、正文滚动、宽屏双栏 / 窄屏底部面板的修复。
 
-已知问题：运行时权限修复后，1.21.11 可能继续暴露下一层 JVM / Minecraft 报错，不能仅凭这次修复视为已稳定运行。如果仍退出码 1，请把 `logs/` 下的最新日志发到 Issue。日志目录：
+已知问题：1.5.13 尚未在真实 Android 设备上验证 1.21.11 能否继续越过 JVM 初始化。如果仍以退出码 1 结束，请把最新日志发到 Issue。日志目录：
 
 ```text
 Android/data/com.blocklauncher.app/files/BlockLauncher/logs/
