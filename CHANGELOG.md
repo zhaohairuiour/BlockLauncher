@@ -5,6 +5,7 @@
 - **修复 JNA 原生库版本冲突**：设备日志报 `Expected: 7.0.4 / Found: 6.1.6`。用 `jna-5.17.0.aar` 的 Android arm64 `libjnidispatch.so`（7.0.4）替换 APK 内置的 Pojav 6.1.6 版本，并保留 `-Djna.nosys=true`；OSHI 的 processor/memory 初始化不再因 Udev 加载失败而中断。
 - **修复 LWJGL Java/native 版本不匹配**：新增 `PojavNatives` 接管名单，在普通安装、加载器安装、自动补全和启动前删除版本 natives 目录中的官方 Linux 版 `liblwjgl*.so`、`libopenal.so`、`libfreetype.so`、`libglfw.so`、`libjnidispatch.so`，避免与 Pojav 运行层的 Android 版混用。
 - 保留 1.5.14 启动前自动补全、1.5.13 `lib/server` 首段 `LD_LIBRARY_PATH`、1.5.12 JRE 执行位与触控编辑器修复。
+- 介绍页新增滚动入场动画、顶部滚动进度条、1.21.11 模拟安装动画和免责声明。
 - 已知问题：尚未在真实 Android 设备验证 1.21.11 是否进入主界面；若仍退出码 6，请附最新 `pojav-1.21.11.log`。
 
 ## 1.5.15 · 2026-11-22

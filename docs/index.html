@@ -23,9 +23,11 @@
 <meta name="twitter:description" content="Minecraft Java + Bedrock，装进一台 Android 设备。">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <div class="scanlines" aria-hidden="true"></div>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -57,7 +59,7 @@
     </div>
 
     <div class="wrap hero-inner">
-      <div class="hero-copy">
+      <div class="hero-copy" data-reveal>
         <div class="eyebrow"><span class="pixel-dot"></span> MINECRAFT JAVA + BEDROCK / ANDROID</div>
         <h1>BLOCK<br>LAUNCHER</h1>
         <p class="hero-sub">方块启动器 · 把 Java 版和基岩版装进同一台 Android 设备。</p>
@@ -77,7 +79,7 @@
         </div>
       </div>
 
-      <div class="hero-art" aria-label="应用界面预览">
+      <div class="hero-art" aria-label="应用界面预览" data-reveal data-reveal-delay="120">
         <div class="phone">
           <div class="phone-top">
             <span class="phone-time">09:41</span>
@@ -123,38 +125,38 @@
 
   <section class="section" id="features">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <div class="kicker">FEATURES / 01</div>
         <h2>一块一块，搭出完整启动链</h2>
         <p>从版本下载到 JVM 启动，再到触控与日志，所有环节都在同一个像素界面里。</p>
       </div>
       <div class="feature-grid">
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">J</div>
           <h3>Java + Bedrock</h3>
           <p>同一台设备管理 Java 版与官方 Bedrock 客户端，离线账号和微软登录都在本地完成。</p>
         </article>
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">▦</div>
           <h3>版本与加载器</h3>
           <p>Mojang / BMCLAPI 清单、版本继承链、并发断点下载；Fabric、Quilt、Forge、NeoForge 安装器。</p>
         </article>
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">C</div>
           <h3>Android 运行层</h3>
           <p>Pojav / Amethyst 体系 JRE、LWJGL、GL4ES、OpenAL；Java 21 自动选择与运行层日志。</p>
         </article>
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">◈</div>
           <h3>内容中心</h3>
           <p>Modrinth + MC百科检索，模组、光影、资源包、整合包按游戏版本与加载器匹配，项目详情内选择文件版本。</p>
         </article>
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">✥</div>
           <h3>触控与 HUD</h3>
           <p>FCL 风格按键布局编辑器，自定义方向键、动作键、摇杆与游戏内 HUD，横屏竖屏都可调。</p>
         </article>
-        <article class="panel feature">
+        <article class="panel feature" data-reveal>
           <div class="feature-icon">&gt;_</div>
           <h3>可诊断日志</h3>
           <p>JVM stderr 落盘、上次会话恢复、退出码记录；启动失败时直接看到日志尾部，不再只有黑屏。</p>
@@ -165,13 +167,13 @@
 
   <section class="section section-alt" id="download">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <div class="kicker">DOWNLOAD / 02</div>
         <h2>拿一块新的启动器</h2>
         <p>最新构建通过 GitHub Releases 发布，APK 与校验值保持一致。</p>
       </div>
 
-      <div class="panel download-panel">
+      <div class="panel download-panel" data-reveal>
         <div class="download-main">
           <div class="download-version">
             <span class="version-chip">LATEST</span>
@@ -194,7 +196,7 @@
         </div>
       </div>
 
-      <div class="panel hash-panel">
+      <div class="panel hash-panel" data-reveal>
         <div class="hash-label">SHA-256 / 1.5.16 APK</div>
         <div class="hash-row">
           <code id="apk-sha">e2b6199edcd66b8f253c8a1182b561aaa21f6f119898ec843e9d17d6ea4a6124</code>
@@ -203,7 +205,7 @@
         <p class="hash-note">下载后可在文件管理器中核对；Release 页面同时提供版本说明。</p>
       </div>
 
-      <div class="release-notes">
+      <div class="release-notes" data-reveal>
         <div class="note">
           <span class="note-num">01</span>
           <div><b>启动前自动补齐</b><p>检查客户端 jar、libraries、资源对象与 native 解压结果；缺失或损坏文件按版本 JSON 自动下载，不重装整个版本。</p></div>
@@ -220,45 +222,106 @@
     </div>
   </section>
 
+  <section class="section install-demo" id="install-demo">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="kicker">INSTALL SIM / 03</div>
+        <h2>把启动流程，先跑一遍给你看</h2>
+        <p>纯前端模拟 1.21.11 的启动前自检与补全过程。真实安装由启动器在设备上执行，这里只演示状态变化。</p>
+      </div>
+
+      <div class="install-demo-grid">
+        <div class="panel demo-window" data-reveal>
+          <div class="demo-titlebar">
+            <div class="demo-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span>BLOCK LAUNCHER / INSTALLER</span>
+            <span class="demo-live">SIM</span>
+          </div>
+          <div class="demo-body">
+            <div class="demo-headline">
+              <div>
+                <div class="demo-label">VERSION / JAVA 21</div>
+                <strong>1.21.11</strong>
+              </div>
+              <div class="demo-status" id="install-status">待启动</div>
+            </div>
+            <div class="demo-progress" role="progressbar" aria-label="模拟安装进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span id="install-fill"></span>
+            </div>
+            <div class="demo-progress-meta">
+              <span id="install-percent">0%</span>
+              <span id="install-step-label">等待开始</span>
+            </div>
+            <div class="demo-phases" id="install-phases">
+              <div class="demo-phase" data-phase="0"><span class="phase-mark"></span><span>校验客户端与 libraries</span><em>等待</em></div>
+              <div class="demo-phase" data-phase="1"><span class="phase-mark"></span><span>补齐缺失 / 损坏文件</span><em>等待</em></div>
+              <div class="demo-phase" data-phase="2"><span class="phase-mark"></span><span>准备 Java 21 运行时</span><em>等待</em></div>
+              <div class="demo-phase" data-phase="3"><span class="phase-mark"></span><span>解压并清理 natives</span><em>等待</em></div>
+              <div class="demo-phase" data-phase="4"><span class="phase-mark"></span><span>构造启动命令 / 拉起 JVM</span><em>等待</em></div>
+            </div>
+            <div class="demo-log" id="install-log" aria-live="polite"><span>&gt;</span> ready.</div>
+          </div>
+        </div>
+
+        <div class="demo-side" data-reveal data-reveal-delay="120">
+          <div class="demo-side-item">
+            <b>01 / 自检</b>
+            <p>每次启动先核对客户端、libraries、资源索引与 objects。</p>
+          </div>
+          <div class="demo-side-item">
+            <b>02 / 补齐</b>
+            <p>只补缺失或 SHA-1 不匹配的文件，不删除存档、隔离目录和模组。</p>
+          </div>
+          <div class="demo-side-item">
+            <b>03 / 隔离</b>
+            <p>清理版本 natives 中的官方 Linux 库，统一使用 Pojav 的 Android 原生库。</p>
+          </div>
+          <p class="demo-note">纯前端演示：不会请求下载，也不会修改设备上的任何文件。</p>
+          <button class="btn btn-ghost" type="button" id="replay-install">重播安装动画</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="guide">
     <div class="wrap">
-      <div class="section-head">
-        <div class="kicker">GET STARTED / 03</div>
+      <div class="section-head" data-reveal>
+        <div class="kicker">GET STARTED / 04</div>
         <h2>四步进入方块世界</h2>
       </div>
       <div class="steps">
-        <div class="step"><span class="step-num">01</span><h3>安装 APK</h3><p>下载 arm64-v8a 安装包，允许浏览器或文件管理器安装未知来源应用。</p></div>
-        <div class="step"><span class="step-num">02</span><h3>登录账号</h3><p>使用微软正版账号，或创建离线账号；账号信息只保存在本机应用目录。</p></div>
-        <div class="step"><span class="step-num">03</span><h3>下载版本</h3><p>在版本库选择 1.21.11 或其它版本，需要时一并安装 Fabric / Forge 等加载器。</p></div>
-        <div class="step"><span class="step-num">04</span><h3>启动游戏</h3><p>首次启动会准备 Java 运行层；进入游戏后可在控制页调整触控布局和 HUD。</p></div>
+        <div class="step" data-reveal><span class="step-num">01</span><h3>安装 APK</h3><p>下载 arm64-v8a 安装包，允许浏览器或文件管理器安装未知来源应用。</p></div>
+        <div class="step" data-reveal><span class="step-num">02</span><h3>登录账号</h3><p>使用微软正版账号，或创建离线账号；账号信息只保存在本机应用目录。</p></div>
+        <div class="step" data-reveal><span class="step-num">03</span><h3>下载版本</h3><p>在版本库选择 1.21.11 或其它版本，需要时一并安装 Fabric / Forge 等加载器。</p></div>
+        <div class="step" data-reveal><span class="step-num">04</span><h3>启动游戏</h3><p>首次启动会准备 Java 运行层；进入游戏后可在控制页调整触控布局和 HUD。</p></div>
       </div>
     </div>
   </section>
 
   <section class="section section-alt" id="faq">
     <div class="wrap faq-wrap">
-      <div class="section-head">
-        <div class="kicker">FAQ / 04</div>
+      <div class="section-head" data-reveal>
+        <div class="kicker">FAQ / 05</div>
         <h2>启动前先看这里</h2>
       </div>
       <div class="faq-list">
-        <details class="panel faq" open>
+        <details class="panel faq" data-reveal open>
           <summary>支持哪些 Android 设备？</summary>
           <p>当前构建只提供 arm64-v8a，最低 Android 8.0（API 26），目标 API 36。32 位设备或 x86 模拟器不在支持范围。</p>
         </details>
-        <details class="panel faq">
+        <details class="panel faq" data-reveal>
           <summary>为什么 1.21.11 选 Java 21，而不是 Java 26？</summary>
           <p>1.21.11 的版本 JSON 要求 Java 21；Pojav 运行层稳定覆盖 Java 8 / 17 / 21。Java 24/26 属于实验性运行时，可能在 JLI_Launch 内直接退出，因此不会作为启动运行时自动选择。</p>
         </details>
-        <details class="panel faq">
+        <details class="panel faq" data-reveal>
           <summary>更新需要卸载旧版吗？</summary>
           <p>不需要。所有版本使用同一签名证书，直接覆盖安装即可，账号、版本、存档会保留。</p>
         </details>
-        <details class="panel faq">
+        <details class="panel faq" data-reveal>
           <summary>启动失败时日志在哪里？</summary>
           <p>启动器日志页会显示上次会话尾部；JVM 日志在应用外部目录 <code>Android/data/com.blocklauncher.app/files/BlockLauncher/logs/</code>。退出码和上次 JVM 尾部也会写入同一日志目录。</p>
         </details>
-        <details class="panel faq">
+        <details class="panel faq" data-reveal>
           <summary>Bedrock 版是官方客户端吗？</summary>
           <p>启动器只负责检测和拉起设备上已安装的官方 Minecraft Bedrock 客户端，不提供客户端本体下载。</p>
         </details>
@@ -268,7 +331,7 @@
 
   <section class="section final-cta">
     <div class="wrap">
-      <div class="panel cta-panel">
+      <div class="panel cta-panel" data-reveal>
         <div>
           <div class="kicker">READY TO BUILD</div>
           <h2>下一块方块，由你放置。</h2>
@@ -277,6 +340,31 @@
         <div class="cta-actions">
           <a class="btn btn-accent" href="https://github.com/zhaohairuiour/BlockLauncher/releases/latest" target="_blank" rel="noopener">下载 APK</a>
           <a class="btn btn-ghost" href="https://github.com/zhaohairuiour/BlockLauncher" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section disclaimer" id="disclaimer">
+    <div class="wrap">
+      <div class="panel disclaimer-panel" data-reveal>
+        <div class="disclaimer-head">
+          <div>
+            <div class="kicker">DISCLAIMER / 06</div>
+            <h2>免责声明</h2>
+          </div>
+          <span class="tag">请在使用前阅读</span>
+        </div>
+        <div class="disclaimer-body">
+          <p><strong>BlockLauncher 是独立开发的第三方启动器</strong>，与 Mojang Studios、Microsoft、PojavLauncher 及其维护者没有隶属、授权、合作或背书关系。</p>
+          <ul>
+            <li>Minecraft 的名称、商标、游戏素材与客户端版权归 Mojang Studios / Microsoft 所有。使用本项目前，请自行购买并遵守 Minecraft 最终用户许可协议（EULA）。</li>
+            <li>本项目不提供 Minecraft 游戏本体、账号或正版授权，也不绕过任何正版验证机制。</li>
+            <li>第三方启动器、Java 运行时、图形驱动、模组、光影和整合包可能存在兼容性问题。请自行备份存档、版本目录与配置文件；维护者不对数据丢失、设备故障、账号异常或服务中断承担责任。</li>
+            <li>请只从本项目的 GitHub Releases 或 GitHub Pages 获取安装包。第三方转载、修改、重新打包或二次分发版本不受本项目控制，也不在本项目的支持范围内。</li>
+            <li>页面中的“模拟安装动画”仅为前端界面演示，不会下载文件、安装应用或修改设备内容。</li>
+            <li>在法律允许的范围内，本项目按“现状”提供，不附带任何明示或暗示的保证。遇到问题请通过 GitHub Issues 反馈，并附上版本号与脱敏后的日志。</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -293,6 +381,7 @@
       <a href="https://github.com/zhaohairuiour/BlockLauncher" target="_blank" rel="noopener">仓库</a>
       <a href="https://github.com/zhaohairuiour/BlockLauncher/releases" target="_blank" rel="noopener">Releases</a>
       <a href="https://github.com/zhaohairuiour/BlockLauncher/issues" target="_blank" rel="noopener">Issues</a>
+      <a href="#disclaimer">免责声明</a>
     </div>
     <div class="footer-note">非 Mojang / Microsoft 官方产品。Minecraft 是 Mojang Studios 的商标。<br>© <span id="year">2026</span> BlockLauncher · Built with pixels.</div>
   </div>
@@ -323,6 +412,187 @@ function fallbackCopy(text, done) {
   document.body.removeChild(area);
 }
 document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 滚动进度条 ---------- */
+  var scrollBar = document.getElementById('scroll-progress');
+  var scrollTick = false;
+  function paintScrollProgress() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (max > 0 && window.scrollY >= max - 1) ratio = 1;
+    if (scrollBar) scrollBar.style.width = (ratio * 100).toFixed(2) + '%';
+    scrollTick = false;
+  }
+  function onScroll() {
+    if (!scrollTick) {
+      scrollTick = true;
+      window.requestAnimationFrame(paintScrollProgress);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  paintScrollProgress();
+
+  /* ---------- 滚动进入动画 ---------- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  revealEls.forEach(function (el) {
+    var siblings = Array.prototype.slice.call(el.parentElement ? el.parentElement.children : []);
+    var index = siblings.filter(function (item) { return item.hasAttribute('data-reveal'); }).indexOf(el);
+    var delay = index > 0 ? Math.min(index * 55, 330) : 0;
+    if (el.getAttribute('data-reveal-delay')) delay = parseInt(el.getAttribute('data-reveal-delay'), 10) || 0;
+    el.style.setProperty('--reveal-delay', delay + 'ms');
+  });
+
+  function showAllReveals() {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    showAllReveals();
+  } else {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+    /* 首屏元素直接入场，避免等待滚动 */
+    window.setTimeout(function () {
+      revealEls.slice(0, 4).forEach(function (el) { el.classList.add('is-visible'); });
+    }, 120);
+    /* 兜底：即使观察器未触发，也不把正文永久留在透明状态 */
+    window.setTimeout(showAllReveals, 8000);
+  }
+
+  /* ---------- 模拟安装动画 ---------- */
+  var demo = document.getElementById('install-demo');
+  if (!demo) return;
+
+  var fill = document.getElementById('install-fill');
+  var percent = document.getElementById('install-percent');
+  var status = document.getElementById('install-status');
+  var stepLabel = document.getElementById('install-step-label');
+  var log = document.getElementById('install-log');
+  var replay = document.getElementById('replay-install');
+  var progressWrap = demo.querySelector('.demo-progress');
+  var phaseEls = Array.prototype.slice.call(demo.querySelectorAll('.demo-phase'));
+
+  var installPhases = [
+    { pct: 22, label: '校验游戏文件', log: 'scan client.jar / libraries ... ok', done: '通过' },
+    { pct: 46, label: '补齐缺失文件', log: 'repair: 0 files need download', done: '完成' },
+    { pct: 68, label: '准备 Java 运行时', log: 'select jre21 / Java 21', done: '就绪' },
+    { pct: 86, label: '清理旧 natives', log: 'prune legacy LWJGL / JNA libs', done: '完成' },
+    { pct: 100, label: '构造启动命令', log: 'JVM args ready / launch 1.21.11', done: '完成' }
+  ];
+
+  var demoTimer = null;
+  var demoRunning = false;
+  var demoStarted = false;
+
+  function setPhase(index, state, note) {
+    var el = phaseEls[index];
+    if (!el) return;
+    el.classList.remove('is-active', 'is-done');
+    if (state === 'active') el.classList.add('is-active');
+    if (state === 'done') el.classList.add('is-done');
+    var em = el.querySelector('em');
+    if (em && note) em.textContent = note;
+  }
+
+  function resetDemo() {
+    if (demoTimer) { window.clearTimeout(demoTimer); demoTimer = null; }
+    demoRunning = false;
+    if (fill) fill.style.width = '0%';
+    if (percent) percent.textContent = '0%';
+    if (status) { status.textContent = '待启动'; status.classList.remove('is-running', 'is-done'); }
+    if (stepLabel) stepLabel.textContent = '等待开始';
+    if (progressWrap) progressWrap.setAttribute('aria-valuenow', '0');
+    if (log) log.textContent = '> ready.';
+    phaseEls.forEach(function (el, i) {
+      el.classList.remove('is-active', 'is-done');
+      var em = el.querySelector('em');
+      if (em) em.textContent = '等待';
+    });
+    if (replay) replay.disabled = false;
+  }
+
+  function finishDemo() {
+    demoRunning = false;
+    demoStarted = true;
+    if (fill) fill.style.width = '100%';
+    if (percent) percent.textContent = '100%';
+    if (status) { status.textContent = '已就绪'; status.classList.remove('is-running'); status.classList.add('is-done'); }
+    if (stepLabel) stepLabel.textContent = '启动环境准备完成';
+    if (progressWrap) progressWrap.setAttribute('aria-valuenow', '100');
+    if (log) log.textContent = '> done. 1.21.11 ready to launch.';
+    phaseEls.forEach(function (el) { el.classList.add('is-done'); });
+    if (replay) replay.disabled = false;
+  }
+
+  function runDemo() {
+    if (demoRunning) return;
+    resetDemo();
+    demoStarted = true;
+    demoRunning = true;
+    if (status) { status.textContent = '进行中'; status.classList.add('is-running'); }
+    if (replay) replay.disabled = true;
+
+    if (reduceMotion) {
+      phaseEls.forEach(function (el, i) {
+        var em = el.querySelector('em');
+        if (em) em.textContent = installPhases[i].done;
+      });
+      finishDemo();
+      return;
+    }
+
+    var index = 0;
+    function nextPhase() {
+      if (index >= installPhases.length) { finishDemo(); return; }
+      var phase = installPhases[index];
+      setPhase(index, 'active', '进行中');
+      if (fill) fill.style.width = phase.pct + '%';
+      if (percent) percent.textContent = phase.pct + '%';
+      if (progressWrap) progressWrap.setAttribute('aria-valuenow', String(phase.pct));
+      if (stepLabel) stepLabel.textContent = phase.label;
+      if (log) log.textContent = '> ' + phase.log;
+      demoTimer = window.setTimeout(function () {
+        setPhase(index, 'done', phase.done);
+        index += 1;
+        nextPhase();
+      }, 880);
+    }
+    nextPhase();
+  }
+
+  if (replay) {
+    replay.addEventListener('click', runDemo);
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    runDemo();
+  } else {
+    var demoObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !demoStarted) {
+          demoStarted = true;
+          demoObserver.disconnect();
+          runDemo();
+        }
+      });
+    }, { threshold: 0.32 });
+    demoObserver.observe(demo);
+  }
+})();
 </script>
 </body>
 </html>

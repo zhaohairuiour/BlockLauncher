@@ -80,7 +80,7 @@ GitHub Pages 站点位于：
 
 **https://zhaohairuiour.github.io/BlockLauncher/**
 
-站点与 App 共用同一套视觉资产：`minecraft_pixel.ttf`、草方块图标和 Overworld 配色。页面源码在 `docs/`。
+站点与 App 共用同一套视觉资产：`minecraft_pixel.ttf`、草方块图标和 Overworld 配色。页面包含滚动入场动画、顶部滚动进度条、1.21.11 模拟安装动画和免责声明；源码在 `docs/`。
 
 ## 仓库结构
 
